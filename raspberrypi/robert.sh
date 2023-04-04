@@ -33,11 +33,11 @@ apploc=$HOME;
 appname="";
 case $app in
   1)
-    apploc="${apploc}/pihole/";
+    apploc="${apploc}/pihole-docker/";
     appname="pihole";
     ;;
   2)
-    apploc="${apploc}/homeassistent/";
+    apploc="${apploc}/homeassistent-docker/";
     appname="home-assistent";
     ;;
 esac
