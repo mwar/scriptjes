@@ -24,9 +24,9 @@ fi
 #####
 app=$( dialog --clear --stdout --title "Kies applicatie" \
 	--menu "Voor welke applicatie wil je aan de slag?" \
-	20 20 3 \
+	20 30 3 \
 	1 "PiHole" \
-	2 "HomeAssistant"
+	2 "HomeAssistant" \
 	3 "Zigbee dongle (voor logging)"
 );
 
