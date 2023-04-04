@@ -24,9 +24,10 @@ fi
 #####
 app=$( dialog --clear --stdout --title "Kies applicatie" \
 	--menu "Voor welke applicatie wil je aan de slag?" \
-	15 20 2 \
+	20 20 2 \
 	1 "PiHole" \
 	2 "HomeAssistant"
+	3 "Zigbee dongle (voor logging)"
 );
 
 apploc=$HOME;
@@ -39,6 +40,10 @@ case $app in
   2)
     apploc="${apploc}/homeassistent-docker/";
     appname="home-assistent";
+    ;;
+  3)
+    apploc="${apploc}/homeassistent-docker/";
+    appname="deconz";
     ;;
 esac
 
@@ -85,6 +90,6 @@ case $actie in
   4)
     dialog --title "Logs bekijken" \
          --msgbox "Je gaat de logging bekijken van ${appname} en die blijf je volgen.\nOm te stoppen toets CTRL + C" 30 100;
-    docker logs -n 100 -f $appname;
+    sudo docker logs -n 100 -f $appname;
     ;;
 esac
