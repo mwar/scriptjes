@@ -39,7 +39,7 @@ case $app in
     ;;
   2)
     apploc="${apploc}/homeassistent-docker/";
-    appname="home-assistent";
+    appname="home-assistant";
     ;;
   3)
     apploc="${apploc}/homeassistent-docker/";
@@ -90,6 +90,7 @@ case $actie in
   4)
     dialog --title "Logs bekijken" \
          --msgbox "Je gaat de logging bekijken van ${appname} en die blijf je volgen.\nOm te stoppen toets CTRL + C" 30 100;
+    clear;
     sudo docker logs -n 100 -f $appname;
     ;;
 esac
