@@ -59,7 +59,7 @@ pipeline {
                     stages {
                         stage('Continue?') {
                             steps {
-                                input message: 'Deploy to Github Packages?', ok: 'Deploy'
+                                // input message: 'Deploy to Github Packages?', ok: 'Deploy'
                             }
                         }
 
