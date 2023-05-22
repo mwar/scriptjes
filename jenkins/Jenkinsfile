@@ -1,0 +1,90 @@
+#!/bin/groovy
+// Create a jenkins script to build a maven application and deploy to articaftory.
+// After the deploy create a docker image and push to local registry.
+// After the docker image is pushed to local registry, deploy the docker image to kubernetes.
+
+def projectVersion;
+
+pipeline {
+    agent any
+    stages {
+        stage('Init') {
+            steps {
+                script {
+                    'build with maven'
+                    // withMaven {
+                    //     projectVersion = sh(returnStdout: true, script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout').trim()
+                    // }
+                }
+            }
+        }
+
+        stage('Test input') {
+            steps {
+                input message: 'Test OK', ok: 'Yes, ok!'
+            }
+        }
+
+        stage('Deploy') {
+
+            parallel {
+                stage('Lokaal Deploy') {
+                    stages {
+                        stage('Deploy to Artifactory') {
+                            steps {
+                                script {
+                                    echo "Lokaal deployen"
+                                }
+                            }
+                        }
+
+                        stage('Deploy Docker Image') {
+                            steps {
+                                script {
+
+                                    withMaven {
+                                        echo "docker push local artifact:${projectVersion}}"
+
+                                        if (env.BRANCH_NAME == 'develop') {
+                                            echo "docker push local artifact:latest"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                stage('Deploy to Github Packages') {
+                    stages {
+                        stage('Continue?') {
+                            steps {
+                                input message: 'Deploy to Github Packages?', ok: 'Deploy'
+                            }
+                        }
+
+                        stage('Deploy to Artifactory') {
+                            steps {
+                                script {
+                                    echo "Github deployen"
+                                }
+                            }
+                        }
+
+                        stage('Deploy Docker Image') {
+                            steps {
+                                script {
+
+                                    withMaven {
+                                        echo "docker push to something else${projectVersion}}"
+                                    }
+                                }
+                            }
+                        }
+                    } // end stages
+                }
+            } // end parallel
+        }
+
+    }
+}
