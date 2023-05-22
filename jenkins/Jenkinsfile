@@ -59,6 +59,7 @@ pipeline {
                     stages {
                         stage('Continue?') {
                             steps {
+                                echo 'Continue!';
                                 // input message: 'Deploy to Github Packages?', ok: 'Deploy'
                             }
                         }
