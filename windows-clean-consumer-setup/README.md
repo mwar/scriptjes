@@ -1,8 +1,7 @@
-```md
 ![Windows](https://img.shields.io/badge/Windows-11-blue)
 ![PowerShell](https://img.shields.io/badge/PowerShell-5%2B-blue)
 ![WinGet](https://img.shields.io/badge/WinGet-supported-green)
-```
+
 
 # 🧰 Windows Clean Consumer Setup
 
